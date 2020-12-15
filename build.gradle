@@ -1,0 +1,32 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.4.21'
+    id 'org.jetbrains.kotlin.plugin.spring' version '1.4.21'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    //have these available in both test and integration tests
+    testImplementation(
+            'org.junit.jupiter:junit-jupiter-api:5.7.0',
+            "io.mockk:mockk:1.10.3"
+    )
+
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+tasks.withType(JavaCompile) {
+    enabled = false
+}
+
+test {
+    useJUnitPlatform()
+}
